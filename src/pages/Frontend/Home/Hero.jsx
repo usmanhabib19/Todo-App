@@ -3,41 +3,46 @@ import { Link } from 'react-router-dom'
 
 const Hero = () => {
     return (
-        <div className="flex flex-col items-center">
-            <Link to="https://prebuiltui.com" className="mt-32 flex items-center gap-2 border border-indigo-200 rounded-full p-1 pr-3 text-sm font-medium text-indigo-500 bg-indigo-200/20">
-                <span className="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full">
-                    NEW
-                </span>
-                <p className="flex items-center gap-1">
-                    <span>Try 7 days free trial option </span>
-                    <svg class="mt-1" width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m1 1 4 3.5L1 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </p>
-            </Link>
+        <div className='py-20'>
+            <h1 className="text-3xl font-semibold text-center mx-auto">Our Latest Creations</h1>
+            <p className="text-sm text-slate-500 text-center mt-2 max-w-lg mx-auto">A visual collection of our most recent works -
+                each piece crafted with intention, emotion, and style.</p>
 
-            <h1 className="text-center text-5xl leading-[68px] md:text-6xl md:leading-[80px] font-semibold max-w-4xl text-slate-900">
-                The fastest way to go from idea to impact.
-            </h1>
-            <p className="text-center text-base text-slate-700 max-w-lg mt-2">
-                Our platform helps you build, test, and deliver faster — so you can focus on what matters.
-            </p>
-            <div className="flex items-center gap-4 mt-8">
-                <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 rounded-lg px-7 h-11">
-                    Get started
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.166 10h11.667m0 0L9.999 4.165m5.834 5.833-5.834 5.834" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <button className="border border-slate-600 active:scale-95 hover:bg-white/10 transition text-slate-600 rounded-lg px-8 h-11">
-                    Pricing
-                </button>
+            <div className="flex items-center gap-6 h-[400px] w-full max-w-5xl mt-10 mx-auto">
+                <div className="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
+                    <img className="h-full w-full object-cover object-center"
+                        src="https://images.unsplash.com/photo-1543269865-0a740d43b90c?q=80&w=800&h=400&auto=format&fit=crop"
+                        alt="image" />
+                    <div
+                        className="absolute inset-0 flex flex-col justify-end p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <h1 className="text-3xl">Prompt engineers</h1>
+                        <p className="text-sm">Bridging the gap between human intent and machine understanding through expert prompt design.</p>
+
+                    </div>
+                </div>
+                <div className="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
+                    <img className="h-full w-full object-cover object-right"
+                        src="https://images.unsplash.com/photo-1714976326351-0ecf0244f0fc?q=80&w=800&h=400&auto=format&fit=crop"
+                        alt="image" />
+                    <div
+                        className="absolute inset-0 flex flex-col justify-end p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <h1 className="text-3xl">Data scientists</h1>
+                        <p className="text-sm">Bridging the gap between human intent and machine understanding through expert prompt design.</p>
+
+                    </div>
+                </div>
+                <div className="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
+                    <img className="h-full w-full object-cover object-center"
+                        src="https://images.unsplash.com/photo-1736220690062-79e12ca75262?q=80&w=800&h=400&auto=format&fit=crop"
+                        alt="image" />
+                    <div
+                        className="absolute inset-0 flex flex-col justify-end p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <h1 className="text-3xl">Software engineers</h1>
+                        <p className="text-sm">Bridging the gap between human intent and machine understanding through expert prompt design.</p>
+
+                    </div>
+                </div>
             </div>
-
-            <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/dashboard-image-1.png"
-                className="w-full rounded-[15px] max-w-4xl mt-16"
-                alt="hero section showcase"
-            />
         </div>
     )
 }

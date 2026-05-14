@@ -7,7 +7,7 @@ const reducer = (state, { type, payload }) => {
     const { user = {} } = payload
     switch (type) {
         case "SET_LOGIN":
-            return { isAuth: false, user }
+            return { isAuth: true, user }
         case "SET_PROFILE":
             return { ...state, user }
         case "SET_LOGOUT":
