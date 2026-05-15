@@ -1,39 +1,27 @@
 import { useState, useEffect, Fragment } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 import { Menu, Transition } from '@headlessui/react'
 import { animate, stagger } from 'animejs'
-import {
-    Bars3Icon,
-    XMarkIcon,
-    ChevronDownIcon,
-    UserCircleIcon,
-    ArrowRightOnRectangleIcon,
-    Cog6ToothIcon,
-    ClipboardDocumentListIcon,
-    HomeIcon,
-    InformationCircleIcon,
-    PhoneIcon,
-    CodeBracketIcon,
-    LockClosedIcon,
-    CheckCircleIcon,
-} from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, ChevronDownIcon, UserCircleIcon, ArrowRightOnRectangleIcon, Cog6ToothIcon, ClipboardDocumentListIcon, HomeIcon, InformationCircleIcon, PhoneIcon, CodeBracketIcon, LockClosedIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '../../context/Auth'
 
 // ─── Nav Links ───────────────────────────────────────────────
 // public = everyone, private = only logged in
 const NAV_LINKS = [
     { label: 'Home', to: '/', icon: <HomeIcon className="w-4 h-4" />, private: false },
-    { label: 'About', to: '/about', icon: <InformationCircleIcon className="w-4 h-4" />, private: false },
+    // { label: 'About', to: '/about', icon: <InformationCircleIcon className="w-4 h-4" />, private: false },
     { label: 'Todos', to: '/todos', icon: <CheckCircleIcon className="w-4 h-4" />, private: true },
-    { label: 'Contact', to: '/contact', icon: <PhoneIcon className="w-4 h-4" />, private: false },
+    // { label: 'Contact', to: '/contact', icon: <PhoneIcon className="w-4 h-4" />, private: false },
 ]
 
 const HOOK_LINKS = [
-    { label: 'useState', to: '/hooks/useState' },
-    { label: 'useEffect', to: '/hooks/useEffect' },
-    { label: 'useContext', to: '/hooks/useContext' },
-    { label: 'useRef', to: '/hooks/useRef' },
-    { label: 'useReducer', to: '/hooks/useReducer' },
+    // { label: 'useState', to: '/hooks/useState' },
+    // { label: 'useEffect', to: '/hooks/useEffect' },
+    // { label: 'useContext', to: '/hooks/useContext' },
+    // { label: 'useRef', to: '/hooks/useRef' },
+    // { label: 'useReducer', to: '/hooks/useReducer' },
 ]
 
 export default function Navbar() {
@@ -66,7 +54,7 @@ export default function Navbar() {
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' })
         localStorage.removeItem('user')
-        window.toastify('Logout successful', 'success')
+        toast.success('Logout successful')
         navigate('/')
     }
 
@@ -74,14 +62,14 @@ export default function Navbar() {
     const handlePrivateClick = (e, link) => {
         if (link.private && !isAuth) {
             e.preventDefault()
-            window.toastify('Please login to access this page', 'error')
+            toast.error('Please login to access this page')
             navigate('/auth/login', { state: { from: link.to } })
         }
     }
 
     return (
         <>
-            <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0f]/85 backdrop-blur-xl border-b border-white/8 shadow-lg shadow-black/20' : 'bg-transparent'
+            <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#ffff]/85 backdrop-blur-xl border-b border-white/8 shadow-lg shadow-black/20' : 'bg-transparent'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="flex items-center justify-between h-16">
@@ -91,7 +79,7 @@ export default function Navbar() {
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-md shadow-violet-500/25 group-hover:scale-105 transition-transform">
                                 <CodeBracketIcon className="w-4 h-4 text-white" />
                             </div>
-                            <span className="text-white font-bold text-lg">REACT<span className="text-violet-400">.</span></span>
+                            <span className="text-Purple font-bold text-lg">TODO APP<span className="text-violet-400">.</span></span>
                         </Link>
 
                         {/* ── Desktop Links ── */}
@@ -103,10 +91,10 @@ export default function Navbar() {
                                     onClick={(e) => handlePrivateClick(e, link)}
                                     className={({ isActive }) =>
                                         `nav-ani flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all no-underline relative ${link.private && !isAuth
-                                            ? 'text-white/30 cursor-pointer'
+                                            ? 'text-black/30 cursor-pointer'
                                             : isActive
                                                 ? 'bg-violet-500/15 text-violet-400'
-                                                : 'text-white/60 hover:text-white hover:bg-white/8'
+                                                : 'text-black/60 hover:text-blue hover:bg-white/8'
                                         }`
                                     }
                                 >
@@ -114,22 +102,22 @@ export default function Navbar() {
                                     {link.label}
                                     {/* Lock icon for private links when not logged in */}
                                     {link.private && !isAuth && (
-                                        <LockClosedIcon className="w-3 h-3 text-white/25" />
+                                        <LockClosedIcon className="w-3 h-3 text-black/25" />
                                     )}
                                 </NavLink>
                             ))}
 
                             {/* Hooks Dropdown */}
                             <Menu as="div" className="relative nav-ani">
-                                <Menu.Button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium text-white/60 hover:text-white hover:bg-white/8 transition-all cursor-pointer border-none bg-transparent">
+                                {/* <Menu.Button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium text-black/60 hover:text-blue hover:bg-white/8 transition-all cursor-pointer border-none bg-transparent">
                                     <ClipboardDocumentListIcon className="w-4 h-4" />
                                     Hooks <ChevronDownIcon className="w-3.5 h-3.5" />
-                                </Menu.Button>
+                                </Menu.Button> */}
                                 <Transition as={Fragment}
                                     enter="transition ease-out duration-150" enterFrom="opacity-0 scale-95 -translate-y-1" enterTo="opacity-100 scale-100 translate-y-0"
                                     leave="transition ease-in duration-100" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
                                     <Menu.Items className="absolute top-full left-0 mt-2 w-44 bg-[#12121f]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-1.5 shadow-2xl outline-none">
-                                        {HOOK_LINKS.map(h => (
+                                        {/* {HOOK_LINKS.map(h => (
                                             <Menu.Item key={h.to}>
                                                 {({ active }) => (
                                                     <Link to={h.to} className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm no-underline transition-colors ${active ? 'bg-violet-500/15 text-violet-400' : 'text-white/60'}`}>
@@ -137,7 +125,7 @@ export default function Navbar() {
                                                     </Link>
                                                 )}
                                             </Menu.Item>
-                                        ))}
+                                        ))} */}
                                     </Menu.Items>
                                 </Transition>
                             </Menu>
@@ -152,8 +140,8 @@ export default function Navbar() {
                                         <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xs font-bold text-white">
                                             {user.name?.charAt(0).toUpperCase()}
                                         </div>
-                                        <span className="text-white/80 text-sm font-medium max-w-24 truncate">{user.name}</span>
-                                        <ChevronDownIcon className="w-3.5 h-3.5 text-white/40" />
+                                        <span className="text-black/80 text-sm font-medium max-w-24 truncate">{user.name}</span>
+                                        <ChevronDownIcon className="w-3.5 h-3.5 text-black/40" />
                                     </Menu.Button>
 
                                     <Transition as={Fragment}
@@ -209,7 +197,7 @@ export default function Navbar() {
                             ) : (
                                 /* ── Auth Buttons ── */
                                 <div className="flex items-center gap-2 nav-ani">
-                                    <Link to="/auth/login" className="px-4 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white hover:bg-white/8 transition-all no-underline">
+                                    <Link to="/auth/login" className="px-4 py-2 rounded-xl text-sm font-medium text-black/70 hover:text-blue hover:bg-white/8 transition-all no-underline">
                                         Login
                                     </Link>
                                     <Link to="/auth/register" className="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-violet-500 hover:opacity-90 hover:-translate-y-0.5 transition-all no-underline shadow-lg shadow-violet-500/20">

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { Tooltip } from 'antd'
 import { UserIcon, EnvelopeIcon, LockClosedIcon, EyeIcon, EyeSlashIcon, ArrowRightIcon, CheckIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '../../context/Auth'
@@ -59,21 +58,40 @@ const Register = () => {
 
         setLoading(true)
         try {
-            // Replace with your API call
-            const res = await axios.post('/api/auth/register', {
-                name: form.name, email: form.email, password: form.password
-            })
-            dispatch({ type: 'SET_LOGIN', payload: res.data.user })
-            localStorage.setItem('user', JSON.stringify(res.data.user))
+            // Get existing users from localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]')
 
+            // Check if email already exists
+            if (users.find(u => u.email === form.email)) {
+                toast.error('Email already registered')
+                setLoading(false)
+                return
+            }
+
+            // Create new user object
+            const newUser = {
+                id: Date.now(), // Generate a simple ID
+                name: form.name,
+                email: form.email,
+                password: form.password // In a real app, never store plain text passwords!
+            }
+
+            // Save to users list
+            users.push(newUser)
+            localStorage.setItem('users', JSON.stringify(users))
+
+            // Log the user in
+            dispatch({ type: 'SET_LOGIN', payload: newUser })
+            
             toast.success('Account created successfully!')
             navigate('/')
         } catch (err) {
-            toast.error(err?.response?.data?.message || 'Registration failed')
+            toast.error('Registration failed')
         } finally {
             setLoading(false)
         }
     }
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f] px-4 py-8 relative overflow-hidden">
@@ -92,7 +110,7 @@ const Register = () => {
                 <div className="flex items-center justify-center gap-2 mb-6">
                     <span className="text-2xl text-violet-400" style={{ display: 'inline-block', animation: 'spin 6s linear infinite' }}>✦</span>
                     <span className="text-xl font-bold tracking-widest bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-                        REACT
+                        TODO APP
                     </span>
                 </div>
 

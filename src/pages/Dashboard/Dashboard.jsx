@@ -40,11 +40,17 @@ const fmtDate = (iso) => iso ? new Date(iso).toLocaleDateString('en-PK', { day: 
 const fmtDT = (iso) => iso ? new Date(iso).toLocaleString('en-PK', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—'
 const isOverdue = (t) => t.dueDate && t.status !== 'Completed' && new Date(t.dueDate) < new Date()
 
-// ─── Fake logged-in user ──────────────────────────────────────
-const CURRENT_USER = { name: 'Usman Habib', avatar: 'UH', role: 'Admin' }
+import { useAuth } from '../../context/Auth'
 
 // ─── Component ───────────────────────────────────────────────
 export default function ProfileDashboard() {
+    const { user } = useAuth()
+    const CURRENT_USER = { 
+        name: user?.name || 'Guest', 
+        avatar: user?.name?.charAt(0).toUpperCase() || 'G', 
+        role: 'User' 
+    }
+
     const [tasks, setTasks] = useState([])
     const [filter, setFilter] = useState('All')
     const [search, setSearch] = useState('')

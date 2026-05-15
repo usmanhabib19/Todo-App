@@ -75,16 +75,16 @@ export default function Footer() {
                             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
                                 <CodeBracketIcon className="w-4 h-4 text-white" />
                             </div>
-                            <span className="text-white font-bold text-lg">REACT<span className="text-violet-400">.</span></span>
+                            <span className="text-white font-bold text-lg">TODO APP<span className="text-violet-400">.</span></span>
                         </Link>
                         <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">
-                            A modern React project built with Tailwind CSS, Ant Design, and the best open-source tools. Learn, build, and ship faster.
+                            A modern Todo App project built with Tailwind CSS, Ant Design, and the best open-source tools. Manage your tasks with ease.
                         </p>
 
                         {/* Contact info */}
                         <div className="space-y-2.5">
                             {[
-                                { icon: <EnvelopeIcon className="w-4 h-4" />, text: 'hello@reactapp.com' },
+                                { icon: <EnvelopeIcon className="w-4 h-4" />, text: 'hello@todoapp.com' },
                                 { icon: <PhoneIcon className="w-4 h-4" />, text: '+92 300 1234567' },
                                 { icon: <MapPinIcon className="w-4 h-4" />, text: 'Faisalabad, Pakistan' },
                             ].map(item => (
@@ -139,7 +139,7 @@ export default function Footer() {
 
                     {/* Copyright */}
                     <p className="text-white/35 text-sm text-center sm:text-left">
-                        © {new Date().getFullYear()} <span className="text-violet-400">REACT.</span> All rights reserved.
+                        © {new Date().getFullYear()} <span className="text-violet-400">TODO APP.</span> All rights reserved.
                     </p>
 
                     {/* Social Links */}

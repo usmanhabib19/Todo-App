@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { Tooltip } from 'antd'
 import { EnvelopeIcon, LockClosedIcon, EyeIcon, EyeSlashIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '../../context/Auth'
@@ -28,19 +27,30 @@ const Login = () => {
 
         setLoading(true)
         try {
-            // Replace with your API call
-            const res = await axios.post('/api/auth/login', form)
-            dispatch({ type: 'SET_LOGIN', payload: res.data.user })
-            localStorage.setItem('user', JSON.stringify(res.data.user))
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]')
 
+            // Find user
+            const user = users.find(u => u.email === form.email && u.password === form.password)
+
+            if (!user) {
+                toast.error('Invalid email or password')
+                setLoading(false)
+                return
+            }
+
+            // Log the user in
+            dispatch({ type: 'SET_LOGIN', payload: user })
+            
             toast.success('Login successful!')
             navigate('/')
         } catch (err) {
-            toast.error(err?.response?.data?.message || 'Invalid credentials')
+            toast.error('Login failed')
         } finally {
             setLoading(false)
         }
     }
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f] px-4 relative overflow-hidden">
@@ -59,7 +69,7 @@ const Login = () => {
                 <div className="flex items-center justify-center gap-2 mb-6">
                     <span className="text-2xl text-violet-400" style={{ display: 'inline-block', animation: 'spin 6s linear infinite' }}>✦</span>
                     <span className="text-xl font-bold tracking-widest bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-                        REACT
+                        TODO APP
                     </span>
                 </div>
 
